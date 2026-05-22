@@ -61,6 +61,31 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
+    // Add this section inside your document.addEventListener('DOMContentLoaded', () => { ... }) block
+
+const menuToggle = document.querySelector('.menu-toggle');
+const navLinksContainer = document.querySelector('.nav-links');
+const individualLinks = document.querySelectorAll('.nav-links a');
+
+// Function container to drop state hooks cleanly
+const toggleMenu = () => {
+    const isActive = menuToggle.classList.toggle('is-active');
+    navLinksContainer.classList.toggle('is-active');
+    menuToggle.setAttribute('aria-expanded', isActive);
+};
+
+// Open/Close menu interaction toggle anchor
+menuToggle.addEventListener('click', toggleMenu);
+
+// Close navigation slide out instantly whenever any explicit internal page target line link item is clicked
+individualLinks.forEach(link => {
+    link.addEventListener('click', () => {
+        if (navLinksContainer.classList.contains('is-active')) {
+            toggleMenu();
+        }
+    });
+});
+    
     // 4. Contact Form Client-Side Validation and Simulation
     const contactForm = document.getElementById('mainContactForm');
 
