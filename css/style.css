@@ -98,14 +98,115 @@ p{ margin:0 0 1em; }
 /* ===================================================
    HERO
 =================================================== */
-.hero{ position:relative; min-height: 72vh; display:flex; align-items:center; overflow:hidden; }
+.hero{
+  position:relative;
+  min-height:82vh;
+  display:flex;
+  align-items:center;
+  overflow:hidden;
+  color:#fff;
+}
 .hero-bg{ position:absolute; inset:0; z-index:0; }
-.hero-bg img{ width:100%; height:100%; object-fit:cover; }
-.hero-overlay{ position:absolute; inset:0; background: linear-gradient(180deg, rgba(15,23,42,0.72), rgba(15,23,42,0.6)); }
-.hero-content{ position:relative; z-index:1; max-width: 760px; margin: 0 auto; text-align:center; color:#fff; padding: 90px 24px; }
-.hero h1{ color:#fff; font-size: clamp(2rem, 4.6vw, 3.1rem); font-weight:700; margin-bottom:22px; }
-.hero-sub{ font-size:1.05rem; color: rgba(255,255,255,0.88); margin-bottom:34px; }
-.hero-actions{ display:flex; gap:16px; justify-content:center; flex-wrap:wrap; }
+.hero-bg img{
+  width:100%; height:115%;        /* extra height gives the parallax room to move */
+  object-fit:cover;
+  will-change:transform;
+}
+.hero-overlay{
+  position:absolute; inset:0;
+  background:
+    linear-gradient(90deg, rgba(10,20,40,.92) 0%, rgba(10,20,40,.7) 45%, rgba(10,20,40,.25) 100%),
+    linear-gradient(0deg, rgba(10,20,40,.55) 0%, transparent 35%);
+}
+
+.hero .hero-content{
+  position:relative; z-index:1;
+  max-width:1120px;               /* set this to match your .container width */
+  width:100%;
+  margin:0 auto;
+  padding:110px 24px 48px;
+  text-align:left;
+  color:#fff;
+  display:flex;
+  flex-direction:column;
+  gap:64px;
+}
+.hero-copy{ max-width:620px; }
+
+.hero-eyebrow{
+  display:flex; align-items:center; gap:12px;
+  color:#f97316;
+  font-size:.8rem; font-weight:600;
+  letter-spacing:.14em; text-transform:uppercase;
+  margin-bottom:16px;
+}
+.hero-eyebrow::before{ content:""; width:28px; height:2px; background:#f97316; }
+
+.hero h1{
+  color:#fff;
+  font-size:clamp(2.4rem, 5.4vw, 3.9rem);
+  font-weight:800;
+  line-height:1.08;
+  letter-spacing:-.02em;
+  text-wrap:balance;
+  margin-bottom:22px;
+}
+.hero-sub{
+  font-size:1.08rem; line-height:1.65;
+  color:rgba(255,255,255,.85);
+  max-width:540px;
+  margin-bottom:34px;
+}
+.hero-actions{ display:flex; gap:14px; flex-wrap:wrap; justify-content:flex-start; }
+
+/* Buttons, scoped to the hero only */
+.hero .btn-primary{
+  background:#f97316; border-color:#f97316; color:#fff;
+  transition:transform .2s, box-shadow .2s, background .2s;
+}
+.hero .btn-primary:hover{
+  background:#ea680c; border-color:#ea680c;
+  transform:translateY(-2px);
+  box-shadow:0 10px 24px rgba(249,115,22,.35);
+}
+.hero .btn-outline-light{
+  background:rgba(255,255,255,.12);
+  border:1px solid rgba(255,255,255,.4);
+  color:#fff;
+  backdrop-filter:blur(6px);
+  transition:background .2s, transform .2s;
+}
+.hero .btn-outline-light:hover{ background:rgba(255,255,255,.22); transform:translateY(-2px); }
+
+/* Trust strip */
+.hero-stats{
+  display:grid;
+  grid-template-columns:repeat(3, 1fr);
+  max-width:620px;
+  padding-top:28px;
+  border-top:1px solid rgba(255,255,255,.2);
+}
+.stat strong{ display:block; font-size:clamp(1.5rem, 3vw, 2rem); font-weight:700; line-height:1; }
+.stat span{ display:block; margin-top:6px; font-size:.85rem; color:rgba(255,255,255,.7); }
+
+/* Entrance animation (separate from your .reveal system) */
+.hero-anim{
+  opacity:0; transform:translateY(20px);
+  transition:opacity .7s ease, transform .7s ease;
+  transition-delay:var(--d, 0s);
+}
+.hero-anim.is-in{ opacity:1; transform:none; }
+
+@media (max-width:640px){
+  .hero{ min-height:auto; }
+  .hero .hero-content{ padding:90px 20px 40px; gap:40px; }
+  .hero-overlay{ background:linear-gradient(180deg, rgba(10,20,40,.85), rgba(10,20,40,.75)); }
+  .hero-actions .btn{ flex:1 1 100%; text-align:center; }
+}
+
+@media (prefers-reduced-motion:reduce){
+  .hero-anim{ opacity:1; transform:none; transition:none; }
+}
 
 /* ===================================================
    SECTION SHELL
